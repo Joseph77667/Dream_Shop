@@ -16,10 +16,10 @@ public interface IProductService {
     List<Product> getAllProducts();
     List<Product> getProductByCategory(String category);
     List<Product> getProductByBrand(String brand);
-    List<Product> getProductByCategoryAndBrand(Category category, String brand);
+    List<Product> getProductByCategoryAndBrand(String category, String brand);
     List<Product> getProductByName(String name);
     List<Product> getProductByBrandAndName(String brand, String name);
-    int countProductByBrandAndName(String brand, String name);
+    Long countProductByBrandAndName(String brand, String name);
 
     List<ProductDto> getConvertedProducts(List<Product> products);
 
