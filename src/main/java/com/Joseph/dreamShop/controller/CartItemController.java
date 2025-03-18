@@ -3,11 +3,13 @@ package com.Joseph.dreamShop.controller;
 import com.Joseph.dreamShop.exception.ResourceNotFoundException;
 import com.Joseph.dreamShop.model.Cart;
 import com.Joseph.dreamShop.model.CartItem;
+import com.Joseph.dreamShop.model.User;
 import com.Joseph.dreamShop.reponse.ApiResponse;
 import com.Joseph.dreamShop.repository.CartItemRepository;
 import com.Joseph.dreamShop.repository.CartRepository;
 import com.Joseph.dreamShop.service.cart.ICartItemService;
 import com.Joseph.dreamShop.service.cart.ICartService;
+import com.Joseph.dreamShop.service.user.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 public class CartItemController {
     private final ICartItemService cartItemService;
     private final ICartService cartService;
+    private final IUserService userService;
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
 
@@ -29,11 +32,10 @@ public class CartItemController {
                                                      @RequestParam Long productId,
                                                      @RequestParam Integer quantity) {
         try {
-            if (cartId == null) {
-                cartId= cartService.initializeNewCart();
-            }
-            cartItemService.addItemToCart(cartId, productId, quantity);
-            return ResponseEntity.ok(new ApiResponse("Add Item to Cart Success", null));
+            User user = userService.getUserById(4L);
+            Cart cart= cartService.initializeNewCart(user);
+            cartItemService.addItemToCart(cart.getId(), productId, quantity);
+            return ResponseEntity.ok(new ApiResponse("Add Item Success", null));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         }

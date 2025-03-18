@@ -35,6 +35,17 @@ public class CartController {
         }
     }
 
+    @GetMapping("/user/{userId}/my-cart")
+    public ResponseEntity<ApiResponse> getUserCart( @PathVariable Long userId) {
+        try {
+            Cart cart = cartService.getCartByUserId(userId);
+            CartDto cartDto = cartService.convertToCartDto(cart);
+            return ResponseEntity.ok(new ApiResponse("Success", cartDto));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+        }
+    }
+
     @DeleteMapping("/{cartId}/clear")
     public ResponseEntity<ApiResponse> clearCart( @PathVariable Long cartId) {
         try {
