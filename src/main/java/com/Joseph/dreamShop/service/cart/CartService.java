@@ -1,11 +1,14 @@
 package com.Joseph.dreamShop.service.cart;
 
+import com.Joseph.dreamShop.dto.CartDto;
 import com.Joseph.dreamShop.exception.ResourceNotFoundException;
 import com.Joseph.dreamShop.model.Cart;
 import com.Joseph.dreamShop.model.User;
 import com.Joseph.dreamShop.repository.CartItemRepository;
 import com.Joseph.dreamShop.repository.CartRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -16,6 +19,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class CartService implements ICartService{
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
+    private final ModelMapper modelMapper;
     private final AtomicLong cartIdGenerator = new AtomicLong(0);
 
     @Override
@@ -27,10 +31,11 @@ public class CartService implements ICartService{
         return cartRepository.save(cart);
     }
 
+    @Transactional
     @Override
     public void clearCart(Long id) {
         Cart cart = getCart(id);
-        CartItemRepository.deleteAllByCartId(id);
+        cartItemRepository.deleteAllByCartId(id);
         cart.getItems().clear();
         cartRepository.deleteById(id);
     }
@@ -50,7 +55,12 @@ public class CartService implements ICartService{
     }
 
     @Override
-    public User getCartByUserId(Long userId) {
+    public Cart getCartByUserId(Long userId) {
         return cartRepository.findByUserId(userId);
+    }
+
+    @Override
+    public CartDto convertToCartDto(Cart cart) {
+        return modelMapper.map(cart, CartDto.class);
     }
 }

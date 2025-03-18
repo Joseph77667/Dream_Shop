@@ -33,7 +33,7 @@ public class CartItemController {
                 cartId= cartService.initializeNewCart();
             }
             cartItemService.addItemToCart(cartId, productId, quantity);
-            return ResponseEntity.ok(new ApiResponse("Add Item Success", null));
+            return ResponseEntity.ok(new ApiResponse("Add Item to Cart Success", null));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         }

@@ -1,5 +1,6 @@
 package com.Joseph.dreamShop.service.cart;
 
+import com.Joseph.dreamShop.dto.CartDto;
 import com.Joseph.dreamShop.model.Cart;
 import com.Joseph.dreamShop.model.User;
 
@@ -11,5 +12,7 @@ public interface ICartService {
     BigDecimal getTotalPrice(Long id);
 
     Long initializeNewCart();
-    User getCartByUserId(Long userId);
+    Cart getCartByUserId(Long userId);
+
+    CartDto convertToCartDto(Cart cart);
 }

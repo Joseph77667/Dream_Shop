@@ -1,5 +1,6 @@
 package com.Joseph.dreamShop.controller;
 
+import com.Joseph.dreamShop.dto.CartDto;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,7 +28,8 @@ public class CartController {
     public ResponseEntity<ApiResponse> getCart( @PathVariable Long cartId) {
         try {
             Cart cart = cartService.getCart(cartId);
-            return ResponseEntity.ok(new ApiResponse("Success", cart));
+            CartDto cartDto = cartService.convertToCartDto(cart);
+            return ResponseEntity.ok(new ApiResponse("Success", cartDto));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         }
