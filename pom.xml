@@ -9,7 +9,7 @@
 		<relativePath/>
 	</parent>
 	<groupId>com.Joseph</groupId>
-	<artifactId>dreamShop</artifactId>
+	<artifactId>E-commerce-spring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>dreamShop</name>
 	<description>Demo project for Spring Boot</description>
@@ -52,6 +52,11 @@
 			<version>24.14.0</version> <!-- Replace with the latest version -->
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
 		<!-- JJWT API -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
@@ -86,6 +91,7 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>

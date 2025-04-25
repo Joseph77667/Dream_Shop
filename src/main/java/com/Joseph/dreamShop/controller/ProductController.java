@@ -40,6 +40,7 @@ public class ProductController {
             ProductDto convertedProducts = productService.convertToDto(product);
             return ResponseEntity.ok(new ApiResponse("Success", convertedProducts));
         }catch (ResourceNotFoundException e){
+//            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         }
     }

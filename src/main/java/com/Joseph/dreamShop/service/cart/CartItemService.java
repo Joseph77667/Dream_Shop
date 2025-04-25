@@ -7,6 +7,7 @@ import com.Joseph.dreamShop.model.Product;
 import com.Joseph.dreamShop.repository.CartItemRepository;
 import com.Joseph.dreamShop.repository.CartRepository;
 import com.Joseph.dreamShop.service.product.IProductService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class CartItemService implements ICartItemService{
     private final IProductService productService;
     private final ICartService cartService;
 
+    @Transactional
     @Override
     public void addItemToCart(Long cartId, Long productId, int quantity) {
         //1. Get the cart
